@@ -7,6 +7,10 @@ td {
 	padding: 5px;
 }
 
+.ticket-header {
+	color: white;
+}
+
 .purchase {
 	height: 100px;
 	width: 150px;
