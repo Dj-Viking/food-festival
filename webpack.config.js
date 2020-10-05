@@ -21,7 +21,7 @@ module.exports = {
         use: 
         [
           {
-            loader: 'file-loader',
+            loader: 'file-loader',//process images
             options: 
             {
               name: (file) => {//will return the actual name of the file an not a hexidecimal string
@@ -31,6 +31,9 @@ module.exports = {
                 return url.replace('../', '/assets/')
               }
             }
+          },
+          {
+            loader: 'image-webpack-loader'//reduce image sizes when using file-loader
           }
         ]
       }
