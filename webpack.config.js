@@ -1,10 +1,16 @@
 const path = require('path');
 const webpack = require('webpack');
+const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
 module.exports = {
-  entry: './assets/js/script.js',
+  entry:{
+    app: './assets/js/script.js',
+    events: './assets/js/events.js',
+    schedule: './assets/js/schedule.js',
+    tickets: './assets/js/tickets.js'
+  },
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'main.bundle.js'
+    filename: '[name].bundle.js', //the name of each attribute in the entry object will be used in place of [name] in each bundle.js file that is created. so the budle file for script.js will be app.bundle.js and events: events.bundle.js and so on. with each using the key name for each key-value pair in the object for [name]
   },
   plugins: [
     new webpack.ProvidePlugin
@@ -12,6 +18,12 @@ module.exports = {
       {
         $: "jquery",
         jQuery: 'jquery'
+      }
+    ),
+    new BundleAnalyzerPlugin
+    (
+      {
+        analyzerMode: "static", //report outputs to an HTML file in the dist folder
       }
     )
   ],
