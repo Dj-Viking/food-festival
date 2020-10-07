@@ -8,7 +8,7 @@ const FILES_TO_CACHE = [
   "./assets/css/style.css",
   "./assets/css/bootstrap.css",
   "./assets/css/tickets.css",
-  "./assets/img/icons/favicon.ico",
+  "./assets/img/favicon.ico",
   "./dist/app.bundle.js",
   "./dist/main.bundle.js",
   "./dist/events.bundle.js",
@@ -33,11 +33,16 @@ self.addEventListener('install', function(event) {
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       console.log('installing cache : ' + CACHE_NAME);
+      caches.open(CACHE_NAME).then(cache => cache.keys()).then(requests => requests.map(request => request.url)).then(console.log)
       return cache.addAll(FILES_TO_CACHE);
     })
     .catch(e => console.log(e))
   );
 });
+//check the cache in the browser console with this
+/**
+ * caches.open('cache-name').then(cache => cache.keys()).then(requests => requests.map(request => request.url)).then(console.log)
+ */
 
 //activation step, clear out old ata from cache and then 
 // tell service worker how to manage caches
@@ -84,7 +89,7 @@ self.addEventListener('fetch', function(event) {
           console.log('responding with cache : ' + event.request.url);
           return request;
         } else {
-          console.log('file is not cached, instead we fetch : ' + e.request.url);
+          console.log('file is not cached, instead we fetch : ' + event.request.url);
           return fetch(event.request);
         }
         // if (request) request || fetch(event.request);
