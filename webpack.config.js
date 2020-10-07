@@ -1,6 +1,7 @@
 const path = require('path');
 const webpack = require('webpack');
 const BundleAnalyzerPlugin = require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
+const WebpackPwaManifest = require('webpack-pwa-manifest');
 module.exports = {
   entry:{
     app: './assets/js/script.js',
@@ -51,6 +52,25 @@ module.exports = {
     (
       {
         analyzerMode: "static", //report outputs to an HTML file in the dist folder
+      }
+    ),
+    new WebpackPwaManifest
+    (
+      {
+        name: "Food Festival",
+        short_name: "Foodies",
+        description: "An app that allows you to view upcoming food events.",
+        background_color: "#01579b",
+        theme_color: "#ffffff",
+        fingerprints: false, //these two false properties are not in the manifest.json. because they are specific to manifest plugin. fingerprints tell webpack whether or not it should generate unique fingerprints so that each time a new manifest is generated, it looks like this: manifest.lhge23d.json because we do not want this feature, its false.
+        inject: false,// inject determines whether the link to the manifest.json file is added to the html. because we are not using fingerprints, we can also set inject to be false. we will hardcode the path to the manifest.json instead, just like we would in an application without webpack
+        icons: [
+          {
+            src: path.resolve("assets/img/icons/icon-512x512.png"),
+            sizes: [96, 128, 192, 256, 512],
+            destination: path.join("assets", "icons")
+          }
+        ]
       }
     )
   ],
