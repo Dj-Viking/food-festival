@@ -170,4 +170,18 @@
       <div class="footer-copyright text-center py-3 text-white">© 2019 Trilogy Education Services, a 2U, Inc. brand. All Rights Reserved.</div>        
     </footer>
 </body>
+<script>
+  (function() {//private method register service worker, this is defined and immediately invoked which prevents it from becoming a part of the global space/scope
+    if ("serviceWorker" in navigator) {
+      navigator.serviceWorker.register("./service-worker.js")
+      .then(
+        () => {
+          console.log("Service Worker registered successfully.");
+        }
+      )
+      .catch(error => console.log("Service Worker registration failed:", error));
+    }
+  })();
+  //if statement checks to see if serviceWorker exists on the global navigator object.
+</script>
 </html>
