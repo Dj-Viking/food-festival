@@ -1,6 +1,7 @@
 //cant hardcode absolute paths here for this to work in dev and production
 //since this page is going to be hosted at github.io/projectname subroute
 const FILES_TO_CACHE = [
+  "./",
   "./index.html",
   "./events.html",
   "./tickets.html",
@@ -80,11 +81,13 @@ self.addEventListener('activate', function(event) {
 // the resource directly from the cache; otherwise the resource
 // will be retrieved normally.
 self.addEventListener('fetch', function(event) {
-  console.log('fetch request : ' + event.request.url);  
+  //console.log('fetch request : ' + event.request.url);  
   event.respondWith(
     caches.match(event.request)
     .then(
       request => {
+        //console.log("\x1b[33m", "request being returned from .match(event.request)", "\x1b[00m");
+        //console.log(request);
         if (request) {
           console.log('responding with cache : ' + event.request.url);
           return request;
@@ -95,6 +98,7 @@ self.addEventListener('fetch', function(event) {
         // if (request) request || fetch(event.request);
       }
     )
+    .then(response => { console.log(response); return Promise.resolve(response); })
     .catch(e => console.log(e))
   )
 });
