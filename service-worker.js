@@ -30,12 +30,14 @@ const CACHE_NAME = APP_PREFIX + VERSION;
 // caches.open used to fued the specific cache by name, then add
 // every file in the files-to-cache array to the cache
 self.addEventListener('install', function(event) {
+  debugger;
+  console.log('event' + event);
   event.waitUntil(
     caches.open(CACHE_NAME).then(function(cache) {
       console.log('installing cache : ' + CACHE_NAME);
       return cache.addAll(FILES_TO_CACHE);
     })
-    .catch(e => console.log(e))
+    .catch(error => console.log(error))
   );
 });
 
@@ -75,19 +77,23 @@ self.addEventListener('activate', function(event) {
 // the resource directly from the cache; otherwise the resource
 // will be retrieved normally.
 self.addEventListener('fetch', function(event) {
+  console.log('event.request: ' + event.request);
   console.log('fetch request : ' + event.request.url);  
   event.respondWith(
     caches.match(event.request)
     .then(
       request => {
+        console.log(request);
         if (request) {
           console.log('responding with cache : ' + event.request.url);
           return request;
         } else {
-          console.log('file is not cached, instead we fetch : ' + e.request.url);
+          console.log('file is not cached, instead we fetch : ' + event.request.url);
           return fetch(event.request);
         }
-        // if (request) request || fetch(event.request);
+        // if (request) {
+        //   return request || fetch(event.request);
+        // } 
       }
     )
     .catch(e => console.log(e))
