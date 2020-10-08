@@ -62,6 +62,7 @@ module.exports = {
         description: "An app that allows you to view upcoming food events.",
         background_color: "#01579b",
         theme_color: "#ffffff",
+        start_url: "/",
         fingerprints: false, //these two false properties are not in the manifest.json. because they are specific to manifest plugin. fingerprints tell webpack whether or not it should generate unique fingerprints so that each time a new manifest is generated, it looks like this: manifest.lhge23d.json because we do not want this feature, its false.
         inject: false,// inject determines whether the link to the manifest.json file is added to the html. because we are not using fingerprints, we can also set inject to be false. we will hardcode the path to the manifest.json instead, just like we would in an application without webpack
         icons: [
