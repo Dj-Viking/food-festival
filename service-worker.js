@@ -1,6 +1,6 @@
 //cant hardcode absolute paths here for this to work in dev and production
 //since this page is going to be hosted at github.io/projectname subroute
-const FILES_TO_CACHE = [
+const PATHS_TO_CACHE = [
   "./",
   "./index.html",
   "./events.html",
@@ -35,7 +35,7 @@ self.addEventListener('install', function(event) {
     caches.open(CACHE_NAME).then(function(cache) {
       console.log('installing cache : ' + CACHE_NAME);
       caches.open(CACHE_NAME).then(cache => cache.keys()).then(requests => requests.map(request => request.url)).then(console.log)
-      return cache.addAll(FILES_TO_CACHE);
+      return cache.addAll(PATHS_TO_CACHE);
     })
     .catch(e => console.log(e))
   );
@@ -54,7 +54,7 @@ self.addEventListener('activate', function(event) {
       keyList => {
         let cacheKeepList = keyList.filter(key => key.indexOf(APP_PREFIX));
         cacheKeepList.push(CACHE_NAME);
-        return Promise.all
+        return Promise.resolve
         (
           keyList.map(
             (key, i) => {
