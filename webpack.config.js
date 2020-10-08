@@ -60,8 +60,8 @@ module.exports = {
         name: "Food Festival",
         short_name: "Foodies",
         description: "An app that allows you to view upcoming food events.",
-        background_color: "#01579b",
-        theme_color: "#ffffff",
+        background_color: "#01579B",
+        theme_color: "#317EFB",
         // start_url: "/", //only for localhost dev testing if the pwa can install
         start_url: "../", 
         fingerprints: false, //these two false properties are not in the manifest.json. because they are specific to manifest plugin. fingerprints tell webpack whether or not it should generate unique fingerprints so that each time a new manifest is generated, it looks like this: manifest.lhge23d.json because we do not want this feature, its false.
@@ -70,6 +70,12 @@ module.exports = {
           {
             src: path.resolve("assets/img/icons/icon-512x512.png"),
             sizes: [96, 128, 192, 256, 384, 512],
+            destination: path.join("assets", "icons")
+          },
+          {
+            src: path.resolve("assets/img/icons/icon_192x192.png"),
+            size: "192x192",
+            purpose: 'maskable',
             destination: path.join("assets", "icons")
           }
         ]
